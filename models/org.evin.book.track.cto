@@ -18,6 +18,75 @@
 
 namespace org.evin.book.track
 
+
+abstract participant Business identified by email{
+  o String email
+  o Address address
+  o Double accountBalance
+}
+
+concept Address{
+  o String county optional
+  o String country
+  o String street optional
+  o String zip optional
+}
+
+participant Distributor extends Business{
+}
+
+participant Publisher extends Business{
+}
+
+participant Institution extends Business{
+}
+
+participant Individual extends Business{
+}
+
+asset Contract identified by contractId{
+  o String contractId
+  --> Distributor distributor
+  --> Publisher publisher
+  --> Institution institution
+  --> Individual individual
+  o DateTime arrivalDateTime
+  o Double unitPrice
+  o Double minPenaltyFactor
+  o Double maxPenaltyFactor
+}
+
+asset Shipment identified by shipmentId {
+  o String shipmentId
+  o ShipmentStatus status
+  o Long unitCount
+  --> Contract contract
+}
+
+abstract transaction ShipmentTransaction{
+  --> Shipment shipment
+}
+
+transaction ShipmentReceived extends ShipmentTransaction{
+}
+
+enum ShipmentStatus{
+  o DISPATCHED
+  o IN_TRANSIT
+  o ARRIVED
+} 
+
+/**
+ * JUST FOR INITIALIZING A DEMO
+ */
+transaction EvinBookSetupDemo {
+}
+
+
+
+/**
+ * Below Code from Default
+ */
 participant SampleParticipant identified by participantId {
   o String participantId
   o String firstName
