@@ -43,7 +43,7 @@ participant Customer extends bookNetMember{
 /**
  *  Government Regulator
  */
-partiscipant Regulator identified by email{
+participant Regulator identified by email{
   o String regulatorName
   o String email
   o Address address
