@@ -78,9 +78,9 @@ transaction ShipmentReceived extends ShipmentTransaction{
 }
 
 transaction UpdateShipment extends ShipmentTransaction{
-  o ShipmentStatus status
+  o ShipmentStatus shipmentStatus
   o Location newLocation
-  o String message
+  o String message optional
   --> bookNetMember newHolder optional
 }
 
