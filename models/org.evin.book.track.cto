@@ -10,6 +10,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * https://github.com/coletiv/supplychain-composer-thesis/blob/master/Project/logistics-network/models/org.logistics.testnet.cto
  */
 
 /**
@@ -18,13 +19,6 @@
 
 namespace org.evin.book.track
 
-
-abstract participant Business identified by email{
-  o String email
-  o Address address
-  o Double accountBalance
-}
-
 concept Address{
   o String county optional
   o String country
@@ -32,24 +26,33 @@ concept Address{
   o String zip optional
 }
 
-participant Distributor extends Business{
+abstract participant bookNetMember identified by email{
+  o String email
+  o Address address
+  o Double accountBalance
 }
 
-participant Publisher extends Business{
+participant Distributor extends bookNetMember{
 }
 
-participant Institution extends Business{
+participant Publisher extends bookNetMember{
 }
 
-participant Individual extends Business{
+participant Customer extends bookNetMember{
+}
+/**
+ *  Government Regulator
+ */
+partiscipant Regulator identified by email{
+  o String regulatorName
+  o String email
+  o Address address
 }
 
-asset Contract identified by contractId{
+asset OrderContract identified by contractId{
   o String contractId
-  --> Distributor distributor
-  --> Publisher publisher
-  --> Institution institution
-  --> Individual individual
+  --> bookNetMember buyer
+  --> bookNetMember seller
   o DateTime arrivalDateTime
   o Double unitPrice
   o Double minPenaltyFactor
@@ -59,8 +62,10 @@ asset Contract identified by contractId{
 asset Shipment identified by shipmentId {
   o String shipmentId
   o ShipmentStatus status
+  o String message optional
   o Long unitCount
-  --> Contract contract
+  o Location location
+  --> OrderContract contract
 }
 
 abstract transaction ShipmentTransaction{
@@ -70,11 +75,57 @@ abstract transaction ShipmentTransaction{
 transaction ShipmentReceived extends ShipmentTransaction{
 }
 
+transaction UpdateShipment extends ShipmentTransaction{
+  o ShipmentStatus status
+  o Location newLocation
+  o String message
+  --> bookNetMember newHolder optional
+}
+
 enum ShipmentStatus{
-  o DISPATCHED
-  o IN_TRANSIT
-  o ARRIVED
+  o WAITING
+  o PACKING
+  o DISPATCHING
+  o SHIPPED_IN_TRANSIT
+  o CANCELED
+  o DELIVERED
+  o LOST
 } 
+
+enum ItemStatus {
+  o GOOD
+  o DAMAGED
+  o CRITICAL
+  o LOST
+}
+
+concept Location {
+  o String latLong // global location number
+  o Address address optional
+}
+
+/**
+ * Hyperledger tutorial video 5 25:55 REST API
+ * https://github.com/jackjulianhickey/Hyperledger-Insurance-Tutorial/blob/master/risk-analysis-tutorial/models/org.acme.riskanalysis.cto 
+ */
+asset Book identified by id {
+  o String id
+  o String description
+  o Double price
+  o ItemCondition itemCondition
+  --> bookNetMember owner
+}
+
+concept ItemCondition {
+  o String conditionDescription
+  o ItemStatus status
+}
+
+event changeBookOwnershipEvent{
+--> Book book
+--> bookNetMember newOwner
+--> bookNetMember oldOwner
+}
 
 /**
  * JUST FOR INITIALIZING A DEMO
@@ -83,9 +134,9 @@ transaction EvinBookSetupDemo {
 }
 
 
-
 /**
  * Below Code from Default
+ * Irrelevant
  */
 participant SampleParticipant identified by participantId {
   o String participantId
