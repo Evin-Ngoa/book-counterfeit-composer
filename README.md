@@ -15,6 +15,7 @@ docker rm $(docker ps -a -q)
 > cd /d/workspace/fabric-dev-servers/book-counterfeit-composer
 
 # Runnning Project
+https://medium.com/coinmonks/build-a-insurance-application-with-hyperledger-composer-and-react-js-part-1-3ebe7ad54986
 ### Checking Adminpeer card 
 > composer card list
 
