@@ -55,13 +55,15 @@ asset OrderContract identified by contractId{
   --> bookNetMember seller
   o DateTime arrivalDateTime
   o Double unitPrice
-  o Double minPenaltyFactor
-  o Double maxPenaltyFactor
+  o Double lateArrivalPenaltyFactor
+  o Double damagedPenaltyFactor
+  o Double lostPenaltyFactor
 }
 
 asset Shipment identified by shipmentId {
   o String shipmentId
-  o ShipmentStatus status
+  o ShipmentStatus shipmentStatus
+  o ItemStatus itemStatus
   o String message optional
   o Long unitCount
   o Location location
@@ -95,7 +97,6 @@ enum ShipmentStatus{
 enum ItemStatus {
   o GOOD
   o DAMAGED
-  o CRITICAL
   o LOST
 }
 
@@ -113,6 +114,7 @@ asset Book identified by id {
   o String description
   o Double price
   o ItemCondition itemCondition
+  o Location location
   --> bookNetMember owner
 }
 
