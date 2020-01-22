@@ -68,6 +68,7 @@ asset Shipment identified by shipmentId {
   o Long unitCount
   o Location location
   o BookRegisterShipment[] bookRegisterShipment optional
+  o ShipOwnership[] shipOwnership optional
   --> OrderContract contract
   
 }
@@ -78,6 +79,10 @@ abstract transaction ShipmentTransaction{
 
 transaction BookRegisterShipment extends ShipmentTransaction{
   o String serials
+}
+
+transaction ShipOwnership extends ShipmentTransaction{
+  o String email
 }
 
 transaction ShipmentReceived extends ShipmentTransaction{
@@ -143,22 +148,22 @@ transaction NewOwnership extends BookTransaction{
    o String email
 }
 
-transaction createBook {
-    o String id
-    o BookDetails bookDetails
-}
+// transaction createBook {
+//     o String id
+//     o BookDetails bookDetails
+// }
 
 event NewBookCreated {
     o Book book
 }
 
-transaction BookHistoryQuery {
-  o String id
-}
+// transaction BookHistoryQuery {
+//   o String id
+// }
 
-event BookHistoryQueryResults {
-  o String[] results
-}
+// event BookHistoryQueryResults {
+//   o String[] results
+// }
 
 concept ItemCondition {
   o String conditionDescription
