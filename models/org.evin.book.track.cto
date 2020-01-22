@@ -122,11 +122,25 @@ concept Location {
   o Double price
   o ItemCondition itemCondition
   o Location location
-  --> bookNetMember owner
+  o NewOwnership[] newOwnership
 }
 asset Book identified by id {
   o String id
-  o BookDetails bookDetails
+  o String type
+  o String author
+  o String description
+  o Double price
+  o ItemCondition itemCondition
+  o Location location
+  o NewOwnership[] newOwnership
+}
+
+abstract transaction BookTransaction{
+  --> Book book
+}
+
+transaction NewOwnership extends BookTransaction{
+   o String email
 }
 
 transaction createBook {
