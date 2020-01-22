@@ -115,13 +115,35 @@ concept Location {
  * Hyperledger tutorial video 5 25:55 REST API
  * https://github.com/jackjulianhickey/Hyperledger-Insurance-Tutorial/blob/master/risk-analysis-tutorial/models/org.acme.riskanalysis.cto 
  */
-asset Book identified by id {
-  o String id
+ concept BookDetails {
+  o String type
+  o String author
   o String description
   o Double price
   o ItemCondition itemCondition
   o Location location
   --> bookNetMember owner
+}
+asset Book identified by id {
+  o String id
+  o BookDetails bookDetails
+}
+
+transaction createBook {
+    o String id
+    o BookDetails bookDetails
+}
+
+event NewBookCreated {
+    o Book book
+}
+
+transaction BookHistoryQuery {
+  o String id
+}
+
+event BookHistoryQueryResults {
+  o String[] results
 }
 
 concept ItemCondition {
@@ -142,29 +164,5 @@ transaction EvinBookSetupDemo {
 }
 
 
-/**
- * Below Code from Default
- * Irrelevant
- */
-participant SampleParticipant identified by participantId {
-  o String participantId
-  o String firstName
-  o String lastName
-}
 
-asset SampleAsset identified by assetId {
-  o String assetId
-  --> SampleParticipant owner
-  o String value
-}
 
-transaction SampleTransaction {
-  --> SampleAsset asset
-  o String newValue
-}
-
-event SampleEvent {
-  --> SampleAsset asset
-  o String oldValue
-  o String newValue
-}

@@ -1,0 +1,47 @@
+/** Sample queries for Commodity Trading business network
+ * https://developer.ibm.com/tutorials/cl-create-powerful-blockchain-queries-with-hyperledger-composer/
+ * https://hyperledger.github.io/composer/v0.19/tutorials/queries
+ * https://www.blogsaays.com/blockchain-queries-hyperledger-composer/
+*/
+// query showBookAllHistorians{ 
+//   description: "Select commodity all historians" 
+//   statement: 
+//     SELECT org.hyperledger.composer.system.HistorianRecord FROM 
+// HistorianRegistry
+//           WHERE (transactionType == 'AddAsset' OR transactionType == 
+// 'UpdateAsset' OR transactionType == 'RemoveAsset') 
+// }
+
+// query showCommodityAllHistorians{
+ 
+//   description: "Select commodity all historians"
+//  statement:
+ 
+//     SELECT org.hyperledger.composer.system.HistorianRecord FROM
+ 
+// HistorianRegistry
+ 
+//           WHERE (transactionType == 'AddAsset' OR transactionType ==
+ 
+// 'UpdateAsset' OR transactionType == 'RemoveAsset')
+ 
+// }
+ 
+// query findCommmodityHistoriansWithTime{
+ 
+//   description: "Find commodity historians after a specified time"
+ 
+//   statement:
+ 
+//     SELECT org.hyperledger.composer.system.HistorianRecord FROM
+ 
+// HistorianRegistry WHERE (transactionTimestamp > _$justnow)
+ 
+// }
+
+query selectHistorianRecordsByTrxId {
+  description: "Select historian records by transaction id"
+  statement:
+    SELECT org.hyperledger.composer.system.HistorianRecord
+    WHERE (transactionType == 'AddAsset' OR transactionType == 'UpdateAsset' OR transactionType == 'RemoveAsset')
+}
