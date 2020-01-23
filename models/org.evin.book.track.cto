@@ -54,6 +54,7 @@ asset OrderContract identified by contractId{
   --> bookNetMember buyer
   --> bookNetMember seller
   o DateTime arrivalDateTime
+  o Boolean payOnArrival
   o Double unitPrice
   o Double lateArrivalPenaltyFactor
   o Double damagedPenaltyFactor
@@ -93,6 +94,9 @@ transaction UpdateShipment extends ShipmentTransaction{
   o Location newLocation
   o String message optional
   --> bookNetMember newHolder optional
+}
+event ShipmentUpdate  {
+  --> Shipment shipment
 }
 
 enum ShipmentStatus{
