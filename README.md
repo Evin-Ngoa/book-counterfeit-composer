@@ -14,6 +14,12 @@ docker rm $(docker ps -a -q)
 > sudo mount --bind /mnt/d /d
 > cd /d/workspace/fabric-dev-servers/book-counterfeit-composer
 
+# Runing Fabric
+cd ~/fabric-dev-servers
+./startFabric.sh
+./createPeerAdminCard.sh
+
+
 # Runnning Project
 https://medium.com/coinmonks/build-a-insurance-application-with-hyperledger-composer-and-react-js-part-1-3ebe7ad54986
 ### Checking Adminpeer card 
@@ -26,17 +32,17 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.0.5.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.0.12.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.0.5.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.0.12.bna
 
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.0.11 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.0.5
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.0.12
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
