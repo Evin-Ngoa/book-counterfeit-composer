@@ -58,6 +58,7 @@ asset OrderContract identified by contractId{
   o Boolean payOnArrival
   o Double unitPrice
   o Double quantity
+  o String destinationAddress
   o Double lateArrivalPenaltyFactor
   o Double damagedPenaltyFactor
   o Double lostPenaltyFactor
@@ -88,6 +89,10 @@ transaction ShipOwnership extends ShipmentTransaction{
 }
 
 transaction ShipmentReceived extends ShipmentTransaction{
+}
+
+transaction VerifyBook extends ShipmentTransaction{
+  o String serials
 }
 
 transaction UpdateShipment extends ShipmentTransaction{
@@ -140,12 +145,12 @@ asset Book identified by id {
   o String author
   o String edition 
   o String description
-  o String shipmentId
   o String initialOwner
   o Boolean sold
   o Double price
   o ItemCondition itemCondition optional
   o Location location
+  --> Shipment shipment optional
 }
 
 abstract transaction BookTransaction{
