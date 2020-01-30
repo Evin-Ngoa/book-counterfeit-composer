@@ -29,6 +29,7 @@ concept Address{
 abstract participant bookNetMember identified by email{
   o String email
   o String memberId
+  o String name
   o Address address
   o Double accountBalance
 }
