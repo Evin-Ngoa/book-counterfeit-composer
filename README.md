@@ -32,17 +32,17 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.0.17.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.0.19.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.0.17.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.0.19.bna
 
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.0.19 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.0.17
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.0.19
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
@@ -73,16 +73,16 @@ Command deletes the contents of all the registries in the State Database. It is 
   "shipOwnership": [
     {
       "$class": "org.evin.book.track.ShipOwnership",
-      "email": "publisher1@gmail.com",
+      "owner": "resource:org.evin.book.track.Publisher#publisher1@gmail.com",
       "shipment": "resource:org.evin.book.track.Shipment#SHIP_001",
       "transactionId": "5b4bf6a273ac9ccab05eb6f53f12988f93b8256f5e991f0f27380d4d7f9a553d",
       "timestamp": "2020-01-30T13:16:49.897Z"
     },
-    {
+     {
       "$class": "org.evin.book.track.ShipOwnership",
-      "email": "distributor@gmail.com",
+      "owner": "resource:org.evin.book.track.Distributor#distributor@gmail.com",
       "shipment": "resource:org.evin.book.track.Shipment#SHIP_001",
-      "transactionId": "d6fa1397c2e9203d412a526690a8c42c92bb9a2b4e708e5c58e5588e63d57732",
-      "timestamp": "2020-01-30T13:17:26.876Z"
+      "transactionId": "0172cdd4b00bd673c00a92fc30109f356be98bfa2c85f9f65ee6bc929f7f8802",
+      "timestamp": "2020-01-31T06:24:29.675Z"
     }
   ],

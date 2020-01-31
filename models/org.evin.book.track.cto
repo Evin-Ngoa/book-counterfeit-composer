@@ -86,7 +86,7 @@ transaction BookRegisterShipment extends ShipmentTransaction{
 }
 
 transaction ShipOwnership extends ShipmentTransaction{
-  o String email
+   --> bookNetMember owner
 }
 
 transaction ShipmentReceived extends ShipmentTransaction{
