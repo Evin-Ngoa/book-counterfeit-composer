@@ -45,16 +45,16 @@ participant Customer extends bookNetMember{
 /**
  *  Government Regulator
  */
-participant Regulator identified by email{
-  o String regulatorName
-  o String email
-  o Address address
-}
+// participant Regulator identified by email{
+//   o String regulatorName
+//   o String email
+//   o Address address
+// }
 
 asset OrderContract identified by contractId{
   o String contractId
-  --> bookNetMember buyer
-  --> bookNetMember seller
+  --> Customer buyer
+  --> Publisher seller
   o DateTime arrivalDateTime
   o Boolean payOnArrival
   o Double unitPrice
@@ -150,7 +150,7 @@ asset Book identified by id {
   o Boolean sold
   o Double price
   o ItemCondition itemCondition optional
-  o Location location
+  o Location location optional
   --> Shipment shipment optional
 }
 
