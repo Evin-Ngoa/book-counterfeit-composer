@@ -60,6 +60,7 @@ asset OrderContract identified by contractId{
   o Double unitPrice
   o Double quantity
   o String destinationAddress
+  o OrderStatus orderStatus
   o Double lateArrivalPenaltyFactor
   o Double damagedPenaltyFactor
   o Double lostPenaltyFactor
@@ -71,7 +72,7 @@ asset Shipment identified by shipmentId {
   o ItemStatus itemStatus
   o String message optional
   o Long unitCount
-  o Location location
+  o Location location optional
   o BookRegisterShipment[] bookRegisterShipment optional
   o ShipOwnership[] shipOwnership optional
   --> OrderContract contract
@@ -92,28 +93,32 @@ transaction ShipOwnership extends ShipmentTransaction{
 transaction ShipmentReceived extends ShipmentTransaction{
 }
 
-transaction VerifyBook extends ShipmentTransaction{
-  o String serials
-}
+// transaction VerifyBook extends ShipmentTransaction{
+//   o String serials
+// }
 
-transaction UpdateShipment extends ShipmentTransaction{
-  o ShipmentStatus shipmentStatus
-  o Location newLocation
-  o String message optional
-  --> bookNetMember newHolder optional
-}
+// transaction UpdateShipment extends ShipmentTransaction{
+//   o ShipmentStatus shipmentStatus
+//   o Location newLocation
+//   o String message optional
+//   --> bookNetMember newHolder optional
+// }
 event ShipmentUpdate  {
   --> Shipment shipment
 }
 
 enum ShipmentStatus{
   o WAITING
-  o PACKING
   o DISPATCHING
   o SHIPPED_IN_TRANSIT
   o CANCELED
   o DELIVERED
   o LOST
+} 
+
+enum OrderStatus{
+  o WAITING
+  o PROCESSED
 } 
 
 enum ItemStatus {
@@ -138,7 +143,7 @@ concept Location {
   o Double price
   o ItemCondition itemCondition
   o Location location
-  o NewOwnership[] newOwnership
+  // o NewOwnership[] newOwnership
 }
 asset Book identified by id {
   o String id
@@ -158,9 +163,9 @@ abstract transaction BookTransaction{
   --> Book book
 }
 
-transaction NewOwnership extends BookTransaction{
-   o String email
-}
+// transaction NewOwnership extends BookTransaction{
+//    o String email
+// }
 
 // transaction createBook {
 //     o String id
@@ -190,6 +195,15 @@ event changeBookOwnershipEvent{
 --> bookNetMember oldOwner
 }
 
+transaction updateBookShipment{
+   --> Book book
+   --> Shipment shipmentId
+}
+
+transaction updateOrderStatus{
+  --> OrderContract order
+  o String orderStatus
+}
 /**
  * JUST FOR INITIALIZING A DEMO
  */
