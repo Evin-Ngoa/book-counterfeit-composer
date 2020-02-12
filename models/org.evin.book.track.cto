@@ -30,7 +30,8 @@ abstract participant bookNetMember identified by email{
   o String email
   o String memberId
   o String name
-  o Address address
+  o String telephone optional
+  o Address address optional
   o Double accountBalance
 }
 
