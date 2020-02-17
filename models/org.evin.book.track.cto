@@ -84,7 +84,8 @@ abstract transaction ShipmentTransaction{
 }
 
 transaction BookRegisterShipment extends ShipmentTransaction{
-  o String serials
+  o String serials optional
+  --> Book book
 }
 
 transaction ShipOwnership extends ShipmentTransaction{
