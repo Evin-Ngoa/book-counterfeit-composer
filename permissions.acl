@@ -49,6 +49,22 @@ rule SystemACL {
   action: ALLOW
 }
 
+rule ParticipantAdminWhoCanAllHistorian {
+  description: "this type of participants can read HistorianRecord to the Historian"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW  
+}
+
+rule ParticipantWhoCanReadHistorian {
+  description: "this type of participants can read HistorianRecord to the Historian"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: READ
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW  
+}
+
 rule NetworkAdminUser {
     description: "Grant business network administrators full access to user resources"
     participant: "org.hyperledger.composer.system.NetworkAdmin"

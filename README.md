@@ -1,6 +1,30 @@
 # book-counterfeit-composer
 The Hyperledger Composer For the book counterfeit system
 
+# Important about filter composer-rest
+<https://stackoverflow.com/questions/51655153/how-to-include-relationship-in-custom-query-in-hyperledger-composer/>
+`filter={"include":"resolve"}` is a loopback filter (exposed on the REST APIs only) - and not part of the Composer Query Language syntax.
+Only applies in other queries like
+`http://localhost:3000/api/Account?filter={"where":{"account_type":"saving"},"include":"resolve"}`
+
+Historian Queries return empty results till you add the following in your permissions
+`rule ParticipantAdminWhoCanAllHistorian {
+  description: "this type of participants can read HistorianRecord to the Historian"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW  
+}`
+
+`rule ParticipantWhoCanReadHistorian {
+  description: "this type of participants can read HistorianRecord to the Historian"
+  participant: "org.hyperledger.composer.system.Participant"
+  operation: READ
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW  
+}`
+
+
 # Docker
 # Stop all containers
 docker stop $(docker ps -a -q)
@@ -32,17 +56,17 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.0.30.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.2.3.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up [Start] | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.0.30.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.2.1.bna
 
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.2.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.0.30
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.2.1
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
@@ -58,6 +82,9 @@ Create rest-api+
 
 Command deletes the contents of all the registries in the State Database. It is fast way for developers to reset the Business Network and remove test data.
 > composer network reset -c admin@book-counterfeit-composer
+
+Delete a Card
+composer card delete --card admin@tutorial-network
 
 
 

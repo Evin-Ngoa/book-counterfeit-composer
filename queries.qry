@@ -6,23 +6,48 @@
 query showBookAllHistorians{ 
   description: "Select commodity all historians" 
   statement: 
-    SELECT org.hyperledger.composer.system.HistorianRecord FROM 
-HistorianRegistry
-          WHERE (transactionType == 'AddAsset' OR transactionType == 
+    SELECT org.hyperledger.composer.system.HistorianRecord 
+    WHERE (transactionType == 'AddAsset' OR transactionType == 
 'UpdateAsset' OR transactionType == 'RemoveAsset') 
 }
  
 query findCommmodityHistoriansWithTime{
   description: "Find commodity historians after a specified time"
   statement:
-    SELECT org.hyperledger.composer.system.HistorianRecord FROM
-HistorianRegistry WHERE (transactionTimestamp > _$justnow)
+    SELECT org.hyperledger.composer.system.HistorianRecord
+    WHERE (transactionTimestamp > _$justnow)
  
 }
 
-query QtrackSupplyOnwershipBook {
-  description: "Select historian records by transaction id"
+query getinitialOwnerBook {
+  description: "Getting Book Initial Owner"
   statement:
     SELECT org.evin.book.track.Book
-    WHERE (shipment ==_$shipment)
+    WHERE (initialOwner ==_$initialOwner)
 }
+
+// http://localhost:3000/api/queries/getFromActionParticipantHistorian?stakeholder=resource%3Aorg.hyperledger.composer.system.NetworkAdmin%23admin
+ query getFromActionParticipantHistorian {
+     description:"get user transactions"
+     statement:
+         SELECT org.hyperledger.composer.system.HistorianRecord
+         WHERE (participantInvoking == _$stakeholder)
+ }  
+
+  query getTransactionTypeFromHistorian {
+     description:"get transactionType"
+     statement:
+         SELECT org.hyperledger.composer.system.HistorianRecord
+         WHERE (transactionType == _$transactionType)
+  } 
+
+  
+  // query getComodityEventHistory {
+  //    description:"get ownership of commodity using events"
+  //    statement:
+  //        SELECT org.evin.book.track.TradeNotification
+  //        WHERE (commodity.tradingSymbol == _$tradingSymbolId)
+  // }   
+
+//  HISTORY PLAN
+//  https://stackoverflow.com/questions/46372302/how-do-i-find-the-history-of-transactions-for-an-asset-in-a-blockchain-implement?rq=1
