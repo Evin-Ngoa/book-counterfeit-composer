@@ -158,6 +158,7 @@ asset Book identified by id {
   o Double price
   o ItemCondition itemCondition optional
   o Location location optional
+  --> bookNetMember owner optional
   --> Shipment shipment optional
 }
 
@@ -239,4 +240,12 @@ event TradeNotification {
   --> Commodity commodity
 }
 
+transaction TradeBookOwnership {
+  --> Book book
+  --> bookNetMember newOwner
+}
+
+event TradeBookNotification {
+  --> Book book
+}
 

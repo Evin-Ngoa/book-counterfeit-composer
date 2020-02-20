@@ -26,6 +26,7 @@ query getinitialOwnerBook {
     WHERE (initialOwner ==_$initialOwner)
 }
 
+// resource:org.hyperledger.composer.system.NetworkAdmin#admin
 // http://localhost:3000/api/queries/getFromActionParticipantHistorian?stakeholder=resource%3Aorg.hyperledger.composer.system.NetworkAdmin%23admin
  query getFromActionParticipantHistorian {
      description:"get user transactions"
@@ -34,20 +35,48 @@ query getinitialOwnerBook {
          WHERE (participantInvoking == _$stakeholder)
  }  
 
+  // org.evin.book.track.Trade
+  // http://localhost:3000/api/queries/getTransactionTypeFromHistorian?transactionType=org.evin.book.track.Trade
   query getTransactionTypeFromHistorian {
      description:"get transactionType"
      statement:
          SELECT org.hyperledger.composer.system.HistorianRecord
          WHERE (transactionType == _$transactionType)
+         ORDER BY transactionTimestamp DESC
   } 
 
-  
-  // query getComodityEventHistory {
-  //    description:"get ownership of commodity using events"
-  //    statement:
-  //        SELECT org.evin.book.track.TradeNotification
-  //        WHERE (commodity.tradingSymbol == _$tradingSymbolId)
-  // }   
+   query getLatestHistorian {
+     description:"get latest History"
+     statement:
+         SELECT org.hyperledger.composer.system.HistorianRecord
+         ORDER BY transactionTimestamp DESC
+        
+  } 
+
+  query getTradeHistorian {
+     description:"get history of trade transaction"
+     statement:
+         SELECT org.evin.book.track.Trade
+         WHERE (newOwner == _$newOwner)
+  }  
+
+
+  // http://localhost:3000/api/queries/getCommodityHistorian?commodity=resource%3Aorg.evin.book.track.Commodity%23C_001
+  // resource:org.evin.book.track.Commodity#C_001
+  query getCommodityHistorian {
+     description:"get history of commodity transaction"
+     statement:
+         SELECT org.evin.book.track.Trade
+         WHERE (commodity == _$commodity)
+  }  
+
+  // resource:org.evin.book.track.Book#BOOK_001
+  query getBookOwnerHistorian {
+     description:"get history of trade transaction"
+     statement:
+         SELECT org.evin.book.track.TradeBookOwnership
+         WHERE (book == _$bookId)
+  } 
 
 //  HISTORY PLAN
 //  https://stackoverflow.com/questions/46372302/how-do-i-find-the-history-of-transactions-for-an-asset-in-a-blockchain-implement?rq=1
