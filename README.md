@@ -37,6 +37,8 @@ docker rm $(docker ps -a -q)
 > sudo mkdir -p /d
 > sudo mount --bind /mnt/d /d
 > cd /d/workspace/fabric-dev-servers/book-counterfeit-composer
+> cd /d/workspace/fabric-dev-servers/book-counterfeit-composer/my-loopback-app
+> cd /d/workspace/fabric-dev-servers/book-counterfeit-composer/auth-express
 
 # Runing Fabric
 cd ~/fabric-dev-servers
@@ -77,7 +79,13 @@ ping version above 0.0.1 [upgrade]
 
 
 Create rest-api+
-> composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w true
+> composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w 
+
+// With Another port
+> composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w -p 3001
+
+// With Authentication
+> composer-rest-server -c admin@book-counterfeit-composer -n never -p 3000 -a true -m 
 
 Command deletes the contents of all the registries in the State Database. It is fast way for developers to reset the Business Network and remove test data.
 > composer network reset -c admin@book-counterfeit-composer
@@ -90,7 +98,7 @@ composer card delete --card admin@tutorial-network
 "bookRegisterShipment": [
     {
       "$class": "org.evin.book.track.BookRegisterShipment",
-      "serials": "resource:org.evin.book.track.Book#BOOK_001",
+      "book": "resource:org.evin.book.track.Book#BOOK_001",
       "shipment": "resource:org.evin.book.track.Shipment#SHIP_001",
       "transactionId": "2a564b57b61070e3f34f9a839ab9f4051717176985181753ef7dda0b324fe7ea",
       "timestamp": "2020-01-30T10:54:45.460Z"
@@ -116,3 +124,21 @@ composer card delete --card admin@tutorial-network
 
 
   http://localhost:3000/api/Book/BOOK_001?filter={"where":{"id":"BOOK_001"}, "include":"resolve"}
+
+  login auth 5. composer rest-api time 55:19
+
+  export COMPOSER_PROVIDERS='{
+    "github" : {
+      "provider" : "github",
+      "module" : "passport-github",
+      "clientID" : "305ac7dfd7305b3baf8c",
+      "clientSecret" : "81be47b409e106dcb29288e1466b4c04ccc6386a",
+      "authPath" : "/auth/github",
+      "callbackURL" : "/auth/github/callback",
+      "successRedirect" : "/",
+      "failureRedirect" : "/"
+    }
+    }'
+
+    // White 
+    export COMPOSER_PROVIDERS='{"github":{"provider":"github","module":"passport-github","clientID":"305ac7dfd7305b3baf8c","clientSecret":"81be47b409e106dcb29288e1466b4c04ccc6386a","authPath":"/auth/github","callbackURL":"/auth/github/callback","successRedirect":"/","failureRedirect":"/"}}'
