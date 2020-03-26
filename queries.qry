@@ -19,14 +19,6 @@ query findCommmodityHistoriansWithTime{
  
 }
 
-// resource:org.evin.book.track.Publisher#publisher1@gmail.com
-query getPublisherShipments {
-  description: "Getting Only Shipments [Publishers]"
-  statement:
-    SELECT org.evin.book.track.Shipment
-    WHERE (contract.seller.email ==_$seller)
-}
-
 // At the Publisher Dashboard Show only books owned by the company
 // http://localhost:3001/api/queries/getPublisherBooks?addedBy=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
 // resource:org.evin.book.track.Publisher#publisher1@gmail.com

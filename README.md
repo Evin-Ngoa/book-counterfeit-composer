@@ -58,16 +58,16 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.3.16.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.3.18.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up [Start] | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.16.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.18.bna
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.16 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.18 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.16
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.18
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
@@ -100,32 +100,6 @@ query getPublisherShipments {
     WHERE (contract.seller.email ==_$seller)
 }
 
-// At the Publisher Dashboard Show only books owned by the company
-// http://localhost:3001/api/queries/getPublisherBooks?addedBy=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
-// resource:org.evin.book.track.Publisher#publisher1@gmail.com
-query getPublisherBooks {
-  description: "Getting All My Books [Publishers]"
-  statement:
-    SELECT org.evin.book.track.Book
-    WHERE (addedBy ==_$addedBy)
-}
-
-// http://localhost:3001/api/queries/getPublisherBooks?seller=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
-// resource:org.evin.book.track.Publisher#publisher1@gmail.com
-query getPublisherOrders {
-  description: "Getting Only Orders [Publishers]"
-  statement:
-    SELECT org.evin.book.track.OrderContract
-    WHERE (seller ==_$seller)
-}
-
-// resource:org.evin.book.track.Consumer#consumer@gmail.com
-query getConsumerOrders {
-  description: "Getting Only Orders [Consumers]"
-  statement:
-    SELECT org.evin.book.track.OrderContract
-    WHERE (buyer ==_$buyer)
-}
 
 
 <!-- permissions.acl -->
