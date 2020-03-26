@@ -80,3 +80,19 @@ rule NetworkAdminSystem {
     resource: "org.hyperledger.composer.system.**"
     action: ALLOW
 }
+
+rule customerBook{
+    description: "Customer Can only Read Book"
+    participant: "org.evin.book.track.Customer"
+    operation: CREATE, UPDATE, DELETE
+    resource: "org.evin.book.track.Book"
+    action: DENY
+}
+
+rule customerBookRead{
+    description: "Customer Can only Read Book"
+    participant: "org.evin.book.track.Customer"
+    operation: READ
+    resource: "org.evin.book.track.Book"
+    action: ALLOW
+}
