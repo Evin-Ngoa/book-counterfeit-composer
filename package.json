@@ -3,7 +3,7 @@
         "composer": "^0.20.9"
     },
     "name": "book-counterfeit-composer",
-    "version": "0.3.5",
+    "version": "0.3.16",
     "description": "The Hyperledger Composer For the book counterfeit system",
     "scripts": {
         "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/book-counterfeit-composer.bna",
