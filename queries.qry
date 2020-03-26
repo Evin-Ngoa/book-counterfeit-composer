@@ -38,8 +38,7 @@ query getPublisherOrders {
     WHERE (seller ==_$seller)
 }
 
-// resource:org.evin.book.track.Consumer#consumer@gmail.com
-query getConsumerOrders {
+query getCustomerOrders {
   description: "Getting Only Orders [Consumers]"
   statement:
     SELECT org.evin.book.track.OrderContract
