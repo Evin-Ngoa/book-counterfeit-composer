@@ -58,16 +58,16 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.3.5.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.3.16.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up [Start] | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.5.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.16.bna
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.5 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.16 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.5
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.16
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
@@ -76,7 +76,6 @@ ping network
 > composer network ping --card admin@book-counterfeit-composer
 ping version above 0.0.1 [upgrade]
 > composer network ping -c admin@book-counterfeit-composer | grep Business
-
 
 Create rest-api+
 > composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w 
@@ -93,7 +92,58 @@ Command deletes the contents of all the registries in the State Database. It is 
 Delete a Card
 composer card delete --card admin@tutorial-network
 
+// resource:org.evin.book.track.Publisher#publisher1@gmail.com
+query getPublisherShipments {
+  description: "Getting Only Shipments [Publishers]"
+  statement:
+    SELECT org.evin.book.track.Shipment
+    WHERE (contract.seller.email ==_$seller)
+}
 
+// At the Publisher Dashboard Show only books owned by the company
+// http://localhost:3001/api/queries/getPublisherBooks?addedBy=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
+// resource:org.evin.book.track.Publisher#publisher1@gmail.com
+query getPublisherBooks {
+  description: "Getting All My Books [Publishers]"
+  statement:
+    SELECT org.evin.book.track.Book
+    WHERE (addedBy ==_$addedBy)
+}
+
+// http://localhost:3001/api/queries/getPublisherBooks?seller=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
+// resource:org.evin.book.track.Publisher#publisher1@gmail.com
+query getPublisherOrders {
+  description: "Getting Only Orders [Publishers]"
+  statement:
+    SELECT org.evin.book.track.OrderContract
+    WHERE (seller ==_$seller)
+}
+
+// resource:org.evin.book.track.Consumer#consumer@gmail.com
+query getConsumerOrders {
+  description: "Getting Only Orders [Consumers]"
+  statement:
+    SELECT org.evin.book.track.OrderContract
+    WHERE (buyer ==_$buyer)
+}
+
+
+<!-- permissions.acl -->
+rule customerBook{
+    description: "Customer Can only Read Book"
+    participant: "org.evin.book.track.Customer"
+    operation: CREATE UPDATE DELETE
+    resource: "org.evin.book.track.Book"
+    action: DENY
+}
+
+rule customerBookRead{
+    description: "Customer Can only Read Book"
+    participant: "org.evin.book.track.Customer"
+    operation: READ
+    resource: "org.evin.book.track.Book"
+    action: ALLOW
+}
 
 "bookRegisterShipment": [
     {
@@ -142,3 +192,21 @@ composer card delete --card admin@tutorial-network
 
     // White 
     export COMPOSER_PROVIDERS='{"github":{"provider":"github","module":"passport-github","clientID":"305ac7dfd7305b3baf8c","clientSecret":"81be47b409e106dcb29288e1466b4c04ccc6386a","authPath":"/auth/github","callbackURL":"/auth/github/callback","successRedirect":"/","failureRedirect":"/"}}'
+
+    Authentication links
+
+    1. https://medium.com/@CazChurchUk/developing-multi-user-application-using-the-hyperledger-composer-rest-server-b3b88e857ccc
+    Medium for upload card
+
+    2. https://html.developreference.com/article/11381546/Hyperledger+Composer%3A+How+to+use+card+to+call+composer+REST+services
+
+    3. https://webcache.googleusercontent.com/search?q=cache:CqDzzTXFQOUJ:https://hyperledger.github.io/composer/v0.19/managing/participantsandidentities+&cd=2&hl=en&ct=clnk&gl=ke
+
+    https://www.edureka.co/community/14345/create-participant-there-identities-hyperledger-composer
+
+    Identity Management
+
+    4. https://webcache.googleusercontent.com/search?q=cache:6TyK3QWs1boJ:https://hyperledger.github.io/composer/v0.19/managing/identity-issue+&cd=3&hl=en&ct=clnk&gl=ke
+
+    5. https://stackoverflow.com/questions/54787936/hyperledger-fabric-composer-rest-server-how-to-setup-a-username-password-authe
+    Auth
