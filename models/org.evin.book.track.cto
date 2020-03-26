@@ -47,6 +47,9 @@ participant Publisher extends bookNetMember{
 
 participant Customer extends bookNetMember{
 }
+
+participant Admin extends bookNetMember{
+}
 /**
  *  Government Regulator
  */
