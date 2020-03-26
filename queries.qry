@@ -19,11 +19,39 @@ query findCommmodityHistoriansWithTime{
  
 }
 
-query getinitialOwnerBook {
-  description: "Getting Book Initial Owner"
+// resource:org.evin.book.track.Publisher#publisher1@gmail.com
+query getPublisherShipments {
+  description: "Getting Only Shipments [Publishers]"
+  statement:
+    SELECT org.evin.book.track.Shipment
+    WHERE (contract.seller.email ==_$seller)
+}
+
+// At the Publisher Dashboard Show only books owned by the company
+// http://localhost:3001/api/queries/getPublisherBooks?addedBy=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
+// resource:org.evin.book.track.Publisher#publisher1@gmail.com
+query getPublisherBooks {
+  description: "Getting All My Books [Publishers]"
   statement:
     SELECT org.evin.book.track.Book
-    WHERE (initialOwner ==_$initialOwner)
+    WHERE (addedBy ==_$addedBy)
+}
+
+// http://localhost:3001/api/queries/getPublisherBooks?seller=resource%3Aorg.evin.book.track.Publisher%23publisher1%40gmail.com
+// resource:org.evin.book.track.Publisher#publisher1@gmail.com
+query getPublisherOrders {
+  description: "Getting Only Orders [Publishers]"
+  statement:
+    SELECT org.evin.book.track.OrderContract
+    WHERE (seller ==_$seller)
+}
+
+// resource:org.evin.book.track.Consumer#consumer@gmail.com
+query getConsumerOrders {
+  description: "Getting Only Orders [Consumers]"
+  statement:
+    SELECT org.evin.book.track.OrderContract
+    WHERE (buyer ==_$buyer)
 }
 
 // resource:org.hyperledger.composer.system.NetworkAdmin#admin
