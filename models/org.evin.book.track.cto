@@ -29,7 +29,11 @@ concept Address{
 abstract participant bookNetMember identified by email{
   o String email
   o String memberId
-  o String name
+  o String name optional
+  o String firstName optional
+  o String lastName optional
+  o String userName
+  o String secret
   o String telephone optional
   o Address address optional
   o Double accountBalance
@@ -153,12 +157,12 @@ asset Book identified by id {
   o String author
   o String edition 
   o String description
-  o String initialOwner
   o Boolean sold
   o Double price
   o ItemCondition itemCondition optional
   o Location location optional
   --> bookNetMember owner optional
+  --> bookNetMember addedBy
   --> Shipment shipment optional
 }
 
