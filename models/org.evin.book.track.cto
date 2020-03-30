@@ -68,10 +68,10 @@ asset OrderContract identified by contractId{
   o Double unitPrice
   o Double quantity
   o String destinationAddress
-  o OrderStatus orderStatus
-  o Double lateArrivalPenaltyFactor
-  o Double damagedPenaltyFactor
-  o Double lostPenaltyFactor
+  o OrderStatus orderStatus optional
+  o Double lateArrivalPenaltyFactor optional
+  o Double damagedPenaltyFactor optional
+  o Double lostPenaltyFactor optional
 }
 
 asset Shipment identified by shipmentId {
