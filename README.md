@@ -58,16 +58,16 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> 0.3.20
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.3.23.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up [Start] | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.21.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.23.bna
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.21 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.23 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.21
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.23
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
