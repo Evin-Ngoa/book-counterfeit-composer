@@ -67,6 +67,7 @@ asset OrderContract identified by contractId{
   o Boolean payOnArrival
   o Double unitPrice
   o Double quantity
+  o String description
   o String destinationAddress
   o OrderStatus orderStatus optional
   o Double lateArrivalPenaltyFactor optional
@@ -76,7 +77,7 @@ asset OrderContract identified by contractId{
 
 asset Shipment identified by shipmentId {
   o String shipmentId
-  o ShipmentStatus shipmentStatus
+  o ShipmentStatus ShipmentStatus
   o ItemStatus itemStatus
   o String message optional
   o Long unitCount
@@ -107,7 +108,7 @@ transaction ShipmentReceived extends ShipmentTransaction{
 // }
 
 // transaction UpdateShipment extends ShipmentTransaction{
-//   o ShipmentStatus shipmentStatus
+//   o ShipmentStatus ShipmentStatus
 //   o Location newLocation
 //   o String message optional
 //   --> bookNetMember newHolder optional
@@ -213,6 +214,11 @@ transaction updateBookShipment{
 transaction updateOrderStatus{
   --> OrderContract order
   o String orderStatus
+}
+
+transaction updateShipmentStatus{
+  --> Shipment shipment
+  o String ShipmentStatus
 }
 /**
  * JUST FOR INITIALIZING A DEMO
