@@ -91,13 +91,13 @@ abstract transaction ShipmentTransaction{
   --> Shipment shipment
 }
 
+transaction ShipOwnership extends ShipmentTransaction{
+   --> bookNetMember owner
+}
+
 transaction BookRegisterShipment extends ShipmentTransaction{
   o String serials optional
   --> Book book
-}
-
-transaction ShipOwnership extends ShipmentTransaction{
-   --> bookNetMember owner
 }
 
 transaction ShipmentReceived extends ShipmentTransaction{
@@ -220,6 +220,12 @@ transaction updateShipmentStatus{
   --> Shipment shipment
   o String ShipmentStatus
 }
+
+transaction updateShipmentItemStatus{
+  --> Shipment shipment
+  o String itemStatus
+}
+
 /**
  * JUST FOR INITIALIZING A DEMO
  */
