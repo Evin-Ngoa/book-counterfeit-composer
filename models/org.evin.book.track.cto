@@ -80,6 +80,8 @@ asset Shipment identified by shipmentId {
   o ShipmentStatus ShipmentStatus
   o ItemStatus itemStatus
   o String message optional
+  o String feedbackMessage optional
+  o String feedbackScale optional
   o Long unitCount
   o Location location optional
   o BookRegisterShipment[] bookRegisterShipment optional
@@ -224,6 +226,12 @@ transaction updateShipmentStatus{
 transaction updateShipmentItemStatus{
   --> Shipment shipment
   o String itemStatus
+}
+
+transaction updateShipmentReview{
+  --> Shipment shipment
+  o String feedbackMessage optional
+  o String feedbackScale
 }
 
 /**
