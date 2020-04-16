@@ -46,6 +46,7 @@ participant Publisher extends bookNetMember{
 }
 
 participant Customer extends bookNetMember{
+  o String isRetailer default = "0"
 }
 
 participant Admin extends bookNetMember{
