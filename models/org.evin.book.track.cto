@@ -70,6 +70,7 @@ asset OrderContract identified by contractId{
   o Double quantity
   o String description
   o String destinationAddress
+  o String statusMessage optional
   o OrderStatus orderStatus optional
   o Double lateArrivalPenaltyFactor optional
   o Double damagedPenaltyFactor optional
@@ -81,6 +82,7 @@ asset Shipment identified by shipmentId {
   o ShipmentStatus ShipmentStatus
   o ItemStatus itemStatus
   o String message optional
+  o String statusMessage optional
   o String feedbackMessage optional
   o String feedbackScale optional
   o Long unitCount
@@ -132,6 +134,7 @@ enum ShipmentStatus{
 enum OrderStatus{
   o WAITING
   o PROCESSED
+  o CANCELED
 } 
 
 enum ItemStatus {
