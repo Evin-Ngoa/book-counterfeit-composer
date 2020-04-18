@@ -25,12 +25,6 @@ Historian Queries return empty results till you add the following in your permis
 }`
 
 
-# Docker
-# Stop all containers
-docker stop $(docker ps -a -q)
-# Delete all containers
-docker rm $(docker ps -a -q)
-
 # Running the project from WSL
 > source ~/.profile
 
@@ -39,6 +33,29 @@ docker rm $(docker ps -a -q)
 > cd /d/workspace/fabric-dev-servers/book-counterfeit-composer
 > cd /d/workspace/fabric-dev-servers/book-counterfeit-composer/my-loopback-app
 > cd /d/workspace/fabric-dev-servers/book-counterfeit-composer/auth-express
+
+# Start Fabric in [cd /d/workspace/fabric-dev-servers/]
+> dos2unix ./cmd-bc.sh --start
+> ./cmd-bc.sh --start
+
+# Stop Fabric in [cd /d/workspace/fabric-dev-servers/]
+> dos2unix ./cmd-bc.sh --stop
+> ./cmd-bc.sh --stop
+
+# Start Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
+> dos2unix ./start.sh -f --start -v 0.3.36
+> ./start.sh -f --start -v 0.3.37
+
+# Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
+> dos2unix ./start.sh -f --start -v 0.3.37
+> ./start.sh -f --upgrade -v 0.3.38
+
+
+# Docker
+# Stop all containers
+docker stop $(docker ps -a -q)
+# Delete all containers
+docker rm $(docker ps -a -q)
 
 # Runing Fabric
 cd ~/fabric-dev-servers
