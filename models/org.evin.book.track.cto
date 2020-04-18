@@ -75,6 +75,8 @@ asset OrderContract identified by contractId{
   o Double lateArrivalPenaltyFactor optional
   o Double damagedPenaltyFactor optional
   o Double lostPenaltyFactor optional
+  o DateTime createdAt optional
+  o DateTime updatedAt optional
 }
 
 asset Shipment identified by shipmentId {
@@ -90,6 +92,8 @@ asset Shipment identified by shipmentId {
   o BookRegisterShipment[] bookRegisterShipment optional
   o ShipOwnership[] shipOwnership optional
   --> OrderContract contract
+  o DateTime createdAt optional
+  o DateTime updatedAt optional
 }
 
 abstract transaction ShipmentTransaction{
@@ -174,6 +178,8 @@ asset Book identified by id {
   --> bookNetMember owner optional
   --> bookNetMember addedBy
   --> Shipment shipment optional
+  o DateTime createdAt optional
+  o DateTime updatedAt optional
 }
 
 abstract transaction BookTransaction{
