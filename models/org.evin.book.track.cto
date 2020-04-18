@@ -37,6 +37,8 @@ abstract participant bookNetMember identified by email{
   o String telephone optional
   o Address address optional
   o Double accountBalance
+  o DateTime createdAt optional
+  o DateTime updatedAt optional
 }
 
 participant Distributor extends bookNetMember{

@@ -43,12 +43,12 @@ Historian Queries return empty results till you add the following in your permis
 > ./cmd-bc.sh --stop
 
 # Start Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
-> dos2unix ./start.sh -f --start -v 0.3.39
-> ./start.sh -f --start -v 0.3.39
+> dos2unix ./start.sh -f --start -v 0.4.0
+> ./start.sh -f --start -v 0.4.0
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.0
-> ./start.sh -f --upgrade -v 0.4.0
+> ./start.sh -f --upgrade -v 0.4.1
 
 
 # Docker
