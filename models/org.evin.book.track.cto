@@ -140,6 +140,7 @@ enum ShipmentStatus{
 enum OrderStatus{
   o WAITING
   o PROCESSED
+  o DELIVERED
   o CANCELED
 } 
 
