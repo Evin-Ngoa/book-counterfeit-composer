@@ -250,6 +250,21 @@ transaction updateShipmentReview{
   o String feedbackScale
 }
 
+transaction uploadCustomerProfilePic{
+  o String avatar
+  --> Customer customer
+}
+
+transaction uploadDistributorProfilePic{
+  o String avatar
+  --> Distributor distributor
+}
+
+transaction uploadPublisherProfilePic{
+  o String avatar
+  --> Publisher publisher
+}
+
 /**
  * JUST FOR INITIALIZING A DEMO
  */
