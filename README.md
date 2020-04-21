@@ -48,7 +48,7 @@ Historian Queries return empty results till you add the following in your permis
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.2
-> ./start.sh -f --upgrade -v 0.4.2
+> ./start.sh -f --upgrade -v 0.4.3
 
 
 # Docker
