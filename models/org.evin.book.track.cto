@@ -33,10 +33,13 @@ abstract participant bookNetMember identified by email{
   o String firstName optional
   o String lastName optional
   o String userName
+  o String avatar optional
   o String secret
   o String telephone optional
+  // default 1, when logged in for the first time, update 0 after cookie
+  o Integer firstTimeLogin default = 1 
   o Address address optional
-  o Double accountBalance
+  o Double accountBalance optional
   o DateTime createdAt optional
   o DateTime updatedAt optional
 }
