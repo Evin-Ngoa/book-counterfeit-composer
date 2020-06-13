@@ -90,6 +90,14 @@ query getCustomerOrders {
   }  
 
   // resource:org.evin.book.track.Book#BOOK_001
+  query getBookHistorian {
+      description:"get history of book transaction"
+      statement:
+         SELECT org.evin.book.track.TradeBookOwnership
+         WHERE (book == _$book)
+  }
+
+  // resource:org.evin.book.track.Book#BOOK_001
   query getBookOwnerHistorian {
      description:"get history of trade transaction"
      statement:
