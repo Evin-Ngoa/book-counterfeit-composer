@@ -43,19 +43,28 @@ Historian Queries return empty results till you add the following in your permis
 > ./cmd-bc.sh --stop
 
 # Start Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
-> dos2unix ./start.sh -f --start -v 0.4.6
-> ./start.sh -f --start -v 0.4.6
+> dos2unix ./start.sh -f --start -v 0.4.11
+> ./start.sh -f --start -v 0.4.11
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
-> dos2unix ./start.sh -f --start -v 0.4.7
-> ./start.sh -f --upgrade -v 0.4.7
+> dos2unix ./start.sh -f --start -v 0.4.12
+> ./start.sh -f --upgrade -v 0.4.12
 
+# Run Ngrok and type 
+> ngrok http 3000
+package_url
+BookScanner-master-2 
 
 # Docker
 # Stop all containers
 docker stop $(docker ps -a -q)
 # Delete all containers
 docker rm $(docker ps -a -q)
+
+# List Volumes
+docker volume ls
+# Remove all volumes
+docker volume prune
 
 # Runing Fabric
 cd ~/fabric-dev-servers
@@ -75,16 +84,16 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.3.36.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.4.11.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up [Start] | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.3.36.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.4.11.bna
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.3.36 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.4.11 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.3.36
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.4.11
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
