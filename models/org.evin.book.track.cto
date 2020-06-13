@@ -262,6 +262,11 @@ transaction updateShipmentReview{
   o String feedbackScale
 }
 
+transaction updateCustomerPoints{
+   --> Customer customer
+   o Double accountBalance
+}
+
 transaction uploadCustomerProfilePic{
   o String avatar
   --> Customer customer
