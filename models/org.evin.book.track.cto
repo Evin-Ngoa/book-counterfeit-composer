@@ -192,6 +192,18 @@ abstract transaction BookTransaction{
   --> Book book
 }
 
+asset Report identified by id {
+  o String id
+  o String ward
+  o String description
+  --> Book book 
+  --> bookNetMember reportedBy 
+  --> bookNetMember reportedTo 
+  --> bookNetMember store
+  o DateTime createdAt optional
+  o DateTime updatedAt optional
+}
+
 // transaction NewOwnership extends BookTransaction{
 //    o String email
 // }
