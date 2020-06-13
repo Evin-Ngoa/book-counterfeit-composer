@@ -30,6 +30,7 @@ function upgrade_project(){
 	composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V "$version"
 	
 	echo "==================> Beginnig API ..."
+	# composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w -p 3000
 	composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w -p 3001
 	
     exit 0
