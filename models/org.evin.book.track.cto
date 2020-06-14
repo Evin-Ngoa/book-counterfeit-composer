@@ -188,6 +188,11 @@ asset Book identified by id {
   o DateTime updatedAt optional
 }
 
+transaction updateBookSold{
+  --> Book book
+  o Boolean sold
+}
+
 abstract transaction BookTransaction{
   --> Book book
 }
@@ -204,14 +209,19 @@ asset Report identified by id {
   o DateTime updatedAt optional
 }
 
-// transaction NewOwnership extends BookTransaction{
-//    o String email
-// }
+asset PurchaseRequest identified by id {
+  o String id
+  --> Book book
+  --> bookNetMember purchasedBy 
+  --> bookNetMember purchasedTo 
+  o Boolean status default = false
+}
 
-// transaction createBook {
-//     o String id
-//     o BookDetails bookDetails
-// }
+transaction updatePurchaseRequestStatus{
+  --> PurchaseRequest purchaseRequest
+  o Boolean status
+}
+
 
 event NewBookCreated {
     o Book book
