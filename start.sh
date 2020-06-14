@@ -27,7 +27,8 @@ function upgrade_project(){
 	composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@"$version".bna
 	
 	echo "==================> Executing composer network upgrade ..."
-	composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V "$version"
+	composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V $version
+	
 	
 	echo "==================> Beginnig API ..."
 	# composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w -p 3000
