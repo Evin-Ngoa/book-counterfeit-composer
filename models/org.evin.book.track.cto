@@ -215,6 +215,8 @@ asset PurchaseRequest identified by id {
   --> bookNetMember purchasedBy 
   --> bookNetMember purchasedTo 
   o Boolean status default = false
+  o DateTime createdAt optional
+  o DateTime updatedAt optional
 }
 
 transaction updatePurchaseRequestStatus{
