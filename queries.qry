@@ -105,5 +105,63 @@ query getCustomerOrders {
          WHERE (book == _$bookId)
   } 
 
+  // Get history of client scanning activity
+  // resource:org.evin.book.track.Customer#customer@gmail.com
+  // resource:org.evin.book.track.Customer#customer-evin@gmail.com
+  query getScanBookHistorian {
+     description:"get history of scanning transaction"
+     statement:
+         SELECT org.evin.book.track.updateCustomerPoints
+         WHERE (customer == _$customer)
+         ORDER BY timestamp DESC
+  }
+
+  // Get Admin history of client scanning activity
+  // resource:org.evin.book.track.Customer#customer@gmail.com
+  query getAdminScanBookHistorian {
+     description:"get history of all scanning transaction"
+     statement:
+         SELECT org.evin.book.track.updateCustomerPoints
+         ORDER BY timestamp DESC
+  }
+
+  // Get history of shipment status Activity
+  // resource:org.evin.book.track.Shipment#SHIP_001
+  query getShipmentStatusHistorian {
+     description:"get history of shipment status transaction"
+     statement:
+         SELECT org.evin.book.track.updateShipmentStatus
+         WHERE (shipment == _$shipment)
+         ORDER BY timestamp DESC
+  }
+
+  // Get history of shipment status Activity
+  // resource:org.evin.book.track.Shipment#SHIP_001
+  query getAdminShipmentStatusHistorian {
+     description:"get history of  all shipment status transaction"
+     statement:
+         SELECT org.evin.book.track.updateShipmentStatus
+         ORDER BY timestamp DESC
+  }
+
+  // Get history of order status Activity
+  // resource:org.evin.book.track.Order#OrderID
+  query getOrderStatusHistorian {
+     description:"get history of order status transaction"
+     statement:
+         SELECT org.evin.book.track.updateOrderStatus
+         WHERE (order == _$order)
+         ORDER BY timestamp DESC
+  }
+
+  // Get Admin history of order status Activity
+  // resource:org.evin.book.track.Order
+  query getAdminOrderStatusHistorian {
+     description:"get history of all order status transaction"
+     statement:
+         SELECT org.evin.book.track.updateOrderStatus
+         ORDER BY timestamp DESC
+  }
+
 //  HISTORY PLAN
 //  https://stackoverflow.com/questions/46372302/how-do-i-find-the-history-of-transactions-for-an-asset-in-a-blockchain-implement?rq=1
