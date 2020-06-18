@@ -44,11 +44,11 @@ Historian Queries return empty results till you add the following in your permis
 
 # Start Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.11
-> ./start.sh -f --start -v 0.4.22
+> ./start.sh -f --start -v 0.4.27
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.12
-> ./start.sh -f --upgrade -v 0.4.23
+> ./start.sh -f --upgrade -v 0.4.28
 
 # Run Ngrok and type 
 > ngrok http 3000
@@ -93,7 +93,7 @@ start our business network
 > composer network start --networkName book-counterfeit-composer --networkVersion 0.4.11 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.4.15
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.4.25
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
