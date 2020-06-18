@@ -65,9 +65,30 @@ query getCustomerOrders {
   } 
 
    query getLatestHistorian {
-     description:"get latest History"
+     description:"get All latest History"
      statement:
          SELECT org.hyperledger.composer.system.HistorianRecord
+         ORDER BY transactionTimestamp DESC
+        
+  } 
+
+  // resource:org.evin.book.track.updateReportIsConfirmed#a71a97546fc835c433e9d1c1ee65bc0086c804685e189e40ff11f516a7d024f4
+  // resource:org.evin.book.track.EvinBookSetupDemo#07f7e3d8732efa3a4af403a7000af191a6d98bbe378879586fa2af49fcb301ae
+   query getLatestHistorianBytransactionInvoked {
+     description:"get All latest History By transactionInvoked"
+     statement:
+         SELECT org.hyperledger.composer.system.HistorianRecord
+         WHERE (transactionInvoked == _$transactionInvoked)
+         ORDER BY transactionTimestamp DESC
+        
+  } 
+  
+  // resource:org.hyperledger.composer.system.NetworkAdmin#admin
+   query getLatestHistorianByParticipantInvoking   {
+     description:"get All latest History By participantInvoking  "
+     statement:
+         SELECT org.hyperledger.composer.system.HistorianRecord
+         WHERE (participantInvoking  == _$participantInvoking  )
          ORDER BY transactionTimestamp DESC
         
   } 
@@ -163,5 +184,32 @@ query getCustomerOrders {
          ORDER BY timestamp DESC
   }
 
+  // Get history of confirmed report by publisher Activity
+  // resource:org.evin.book.track.Report#ReportID
+  query getIsConfimedReportHistorian {
+     description:"get history of order status transaction"
+     statement:
+         SELECT org.evin.book.track.updateReportIsConfirmed
+         WHERE (report == _$report)
+         ORDER BY timestamp DESC
+  }
+
+  // Get history of all confirmed report by publisher Activity
+  // resource:org.evin.book.track.Report#ReportID
+  query getAdminIsConfimedReportHistorian {
+     description:"get history of all order status transaction for the Admin"
+     statement:
+         SELECT org.evin.book.track.updateReportIsConfirmed
+         ORDER BY timestamp DESC
+  }
+
+  // C-6a3Gm
+  // http://localhost:3001/api/queries/getCustomerEmailonMemberID?memberId=C-002
+  query getCustomerEmailonMemberID {
+     description:"Get email of customer based on the supplied memberID"
+     statement:
+         SELECT org.evin.book.track.Customer
+         WHERE (memberId == _$memberId)
+  }
 //  HISTORY PLAN
 //  https://stackoverflow.com/questions/46372302/how-do-i-find-the-history-of-transactions-for-an-asset-in-a-blockchain-implement?rq=1
