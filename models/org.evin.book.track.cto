@@ -205,8 +205,16 @@ asset Report identified by id {
   --> bookNetMember reportedBy 
   --> bookNetMember reportedTo 
   --> bookNetMember store
+  o Boolean isConfirmed default = false
   o DateTime createdAt optional
   o DateTime updatedAt optional
+}
+
+transaction updateReportIsConfirmed{
+  --> Report report
+  o Boolean isConfirmed
+  o DateTime updatedAt
+  --> bookNetMember participantInvoking
 }
 
 asset PurchaseRequest identified by id {
