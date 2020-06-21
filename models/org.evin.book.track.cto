@@ -191,6 +191,8 @@ asset Book identified by id {
 transaction updateBookSold{
   --> Book book
   o Boolean sold
+  o DateTime updatedAt
+  --> bookNetMember participantInvoking
 }
 
 abstract transaction BookTransaction{
@@ -200,6 +202,9 @@ abstract transaction BookTransaction{
 asset Report identified by id {
   o String id
   o String ward
+  o String location optional
+  o String longitude optional
+  o String latitude optional
   o String description
   --> Book book 
   --> bookNetMember reportedBy 
@@ -230,20 +235,14 @@ asset PurchaseRequest identified by id {
 transaction updatePurchaseRequestStatus{
   --> PurchaseRequest purchaseRequest
   o Boolean status
+  o DateTime updatedAt
+  --> bookNetMember participantInvoking
 }
 
 
 event NewBookCreated {
     o Book book
 }
-
-// transaction BookHistoryQuery {
-//   o String id
-// }
-
-// event BookHistoryQueryResults {
-//   o String[] results
-// }
 
 concept ItemCondition {
   o String conditionDescription
@@ -259,21 +258,29 @@ event changeBookOwnershipEvent{
 transaction updateBookShipment{
    --> Book book
    --> Shipment shipmentId
+   o DateTime updatedAt
+   --> bookNetMember participantInvoking
 }
 
 transaction updateOrderStatus{
   --> OrderContract order
   o String orderStatus
+  o DateTime updatedAt
+  --> bookNetMember participantInvoking
 }
 
 transaction updateShipmentStatus{
   --> Shipment shipment
   o String ShipmentStatus
+  o DateTime updatedAt
+  --> bookNetMember participantInvoking
 }
 
 transaction updateShipmentItemStatus{
   --> Shipment shipment
   o String itemStatus
+  o DateTime updatedAt
+  --> bookNetMember participantInvoking
 }
 
 transaction updateShipmentReview{
@@ -285,6 +292,8 @@ transaction updateShipmentReview{
 transaction updateCustomerPoints{
    --> Customer customer
    o Double accountBalance
+   o DateTime updatedAt
+   --> bookNetMember participantInvoking
 }
 
 transaction uploadCustomerProfilePic{
