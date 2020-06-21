@@ -165,6 +165,25 @@ query getCustomerOrders {
          ORDER BY timestamp DESC
   }
 
+    // Get history of shipment item status Activity
+  // resource:org.evin.book.track.Shipment#SHIP_001
+  query getShipmentItemStatusHistorian {
+     description:"get history of shipment status transaction"
+     statement:
+         SELECT org.evin.book.track.updateShipmentItemStatus
+         WHERE (shipment == _$shipment)
+         ORDER BY timestamp DESC
+  }
+
+  // Get history of shipment item status Activity
+  // resource:org.evin.book.track.Shipment#SHIP_001
+  query getAdminShipmentItemStatusHistorian {
+     description:"get history of  all shipment status transaction"
+     statement:
+         SELECT org.evin.book.track.updateShipmentItemStatus
+         ORDER BY timestamp DESC
+  }
+
   // Get history of order status Activity
   // resource:org.evin.book.track.Order#OrderID
   query getOrderStatusHistorian {
