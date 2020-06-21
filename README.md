@@ -44,11 +44,11 @@ Historian Queries return empty results till you add the following in your permis
 
 # Start Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.11
-> ./start.sh -f --start -v 0.4.27
+> ./start.sh -f --start -v 0.4.30
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.12
-> ./start.sh -f --upgrade -v 0.4.28
+> ./start.sh -f --upgrade -v 0.4.30
 
 # Run Ngrok and type 
 > ngrok http 3000
@@ -110,7 +110,7 @@ Create rest-api+
 > composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w -p 3001
 
 // With Authentication
-> composer-rest-server -c admin@book-counterfeit-composer -n never -p 3000 -a true -m 
+> composer-rest-server -c admin@book-counterfeit-composer -n never -p 3001 -a true -m 
 
 Command deletes the contents of all the registries in the State Database. It is fast way for developers to reset the Business Network and remove test data.
 > composer network reset -c admin@book-counterfeit-composer
@@ -218,3 +218,34 @@ rule customerBookRead{
 
     5. https://stackoverflow.com/questions/54787936/hyperledger-fabric-composer-rest-server-how-to-setup-a-username-password-authe
     Auth
+
+    /TradeBookOwnership
+    var tradeBookOwnership = {
+      "$class": "org.evin.book.track.TradeBookOwnership",
+      "book": "resource:org.evin.book.track.Book#1536",
+      "newOwner": owner
+    }
+    {
+      "$class": "org.evin.book.track.TradeBookOwnership",
+      "book": "resource:org.evin.book.track.Book#1536",
+      "newOwner": "resource:org.evin.book.track.Distributor#8276"
+    }
+
+
+    {{ \App\User::loggedInUserEmail() }}
+    {{ \App\User::getUserRole() }}
+
+    <input type="hidden" name="loggedInEmail" id="loggedInEmail" class="form-control" value="{{ \App\User::loggedInUserEmail() }}">
+    <input type="hidden" name="userRole" id="userRole" class="form-control" value="{{ \App\User::getUserRole() }}">
+
+    var loggedInEmail = jsonData["loggedInEmail"];
+    var userRole = jsonData["userRole"];
+
+    delete jsonData["loggedInEmail"];
+    delete jsonData["userRole"];
+
+    
+
+    ,
+        updatedAt: currentDateTime(),
+        participantInvoking: "resource:org.evin.book.track." + userRole + "#" + loggedInEmail
