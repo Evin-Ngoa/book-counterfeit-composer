@@ -24,9 +24,11 @@ Historian Queries return empty results till you add the following in your permis
   action: ALLOW  
 }`
 
+# /d/workspace/Hyperledger-Medical-Network
 
 # Running the project from WSL
 > source ~/.profile
+> source ~/.bashrc
 
 > sudo mkdir -p /d
 > sudo mount --bind /mnt/d /d
@@ -44,11 +46,11 @@ Historian Queries return empty results till you add the following in your permis
 
 # Start Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.11
-> ./start.sh -f --start -v 0.4.30
+> ./start.sh -f --start -v 0.5.5
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.12
-> ./start.sh -f --upgrade -v 0.4.30
+> ./start.sh -f --upgrade -v 0.5.5
 
 # Run Ngrok and type 
 > ngrok http 3000
@@ -84,16 +86,16 @@ creating bna command from project folder
 
 version above 0.0.1 [upgrade]
 https://hyperledger.github.io/composer/v0.19/tutorials/queries
-> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.4.17.bna
+> composer archive create --sourceType dir --sourceName . -a book-counterfeit-composer@0.4.37.bna
 
 install our Composer business network on the Hyperledger Fabric peer we have set up [Start] | version above 0.0.1 [upgrade] chnge the version
-> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.4.11.bna
+> composer network install --card PeerAdmin@hlfv1 --archiveFile book-counterfeit-composer@0.5.3.bna
 
 start our business network 
-> composer network start --networkName book-counterfeit-composer --networkVersion 0.4.11 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
+> composer network start --networkName book-counterfeit-composer --networkVersion 0.5.3 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file networkadmin.card
 
 If started before upgrade version version above 0.0.1 [upgrade]
-> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.4.25
+> composer network upgrade -c PeerAdmin@hlfv1 -n book-counterfeit-composer -V 0.4.37
 
 import the network administrator identity 
 > composer card import --file networkadmin.card
@@ -110,7 +112,7 @@ Create rest-api+
 > composer-rest-server -c admin@book-counterfeit-composer -n never -u true -w -p 3001
 
 // With Authentication
-> composer-rest-server -c admin@book-counterfeit-composer -n never -p 3001 -a true -m 
+> composer-rest-server -c admin@book-counterfeit-composer -n never -a true -m -p 3001
 
 Command deletes the contents of all the registries in the State Database. It is fast way for developers to reset the Business Network and remove test data.
 > composer network reset -c admin@book-counterfeit-composer
@@ -249,3 +251,40 @@ rule customerBookRead{
     ,
         updatedAt: currentDateTime(),
         participantInvoking: "resource:org.evin.book.track." + userRole + "#" + loggedInEmail
+
+Step 1
+> npm install -g passport-github
+> npm uninstall -g passport-github
+
+// Github Authentication OAuth
+Step 2
+export COMPOSER_PROVIDERS='{
+  "github": {
+    "provider": "github",
+    "module": "passport-github",
+    "clientID": "a03e84227b5f747ba092",
+    "clientSecret": "6890a1f61a0e54ee37925a6bd63c3fd4a3931f74",
+    "authPath": "/auth/github",
+    "callbackURL": "/auth/github/callback",
+    "successRedirect": "/",
+    "failureRedirect": "/"
+  }
+}'
+
+> echo $COMPOSER_PROVIDERS
+
+// delete 
+> unset COMPOSER_PROVIDERS
+
+> source ~/.bashrc
+
+WSL Linux set env variable permanently from a bash terminal
+Launch your wsl instance.
+> $ sudo vim ~/.bashrc
+Enter your password.
+Press i to go into edit mode. Go to the end of the file using arrow key.
+Add your variable as API_KEY=123 at the end of the file. If your variable has spaces, use quotes.Example - API_KEY= 'My Key'
+Press esc key to get out of edit mode.
+Enter :wq and press enter . This will save and close the file.
+$ source ~/.bashrc will load your recent changes into your current shell.
+$ echo $API_KEY should print your API_KEY.
