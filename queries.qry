@@ -213,6 +213,42 @@ query getCustomerOrders {
          ORDER BY timestamp DESC
   }
 
+  // Historian for registering book in shipment
+  // resource:org.evin.book.track.Book#BookID
+  query getBookRegisterToShipmentHistorian {
+     description:"get history of book addition to shipment"
+     statement:
+         SELECT org.evin.book.track.BookRegisterShipment
+         WHERE (book == _$book)
+         ORDER BY timestamp DESC
+  }
+  
+   // resource:org.evin.book.track.Book#BookID
+  query getAdminBookRegisterToShipmentHistorian {
+     description:"Admin get history of book addition to shipment"
+     statement:
+         SELECT org.evin.book.track.BookRegisterShipment
+         ORDER BY timestamp DESC
+  }
+
+  // Historian for registering book in shipment
+  // resource:org.evin.book.track.Shipment#shipmentID
+  query getBookOwnershipHistorian {
+     description:"get history of book status transaction based on Shipment"
+     statement:
+         SELECT org.evin.book.track.ShipOwnership
+         WHERE (shipment == _$shipmentId)
+         ORDER BY timestamp DESC
+  }
+  
+   // resource:org.evin.book.track.Shipment
+  query getAdminBookOwnershipHistorian {
+     description:"get history of book status transaction based on ShipmentID"
+     statement:
+         SELECT org.evin.book.track.ShipOwnership
+         ORDER BY timestamp DESC
+  }
+
   // Get history of all confirmed report by publisher Activity
   // resource:org.evin.book.track.Report#ReportID
   query getAdminIsConfimedReportHistorian {
