@@ -73,7 +73,9 @@ asset OrderContract identified by contractId{
   o Boolean payOnArrival
   o Double unitPrice
   o Double quantity
-  o String description
+  o Double pricePoints default = 0.00
+  o Double discountPoints default = 0.00
+  o String description optional
   o String destinationAddress
   o String statusMessage optional
   o OrderStatus orderStatus optional
@@ -107,11 +109,13 @@ abstract transaction ShipmentTransaction{
 
 transaction ShipOwnership extends ShipmentTransaction{
    --> bookNetMember owner
+   --> bookNetMember participantInvoking
 }
 
 transaction BookRegisterShipment extends ShipmentTransaction{
   o String serials optional
   --> Book book
+  --> bookNetMember participantInvoking
 }
 
 transaction ShipmentReceived extends ShipmentTransaction{
@@ -179,6 +183,8 @@ asset Book identified by id {
   o String description
   o Boolean sold
   o Double price
+  o Double pricePoints default =  0.00
+  o Double maxPoints default =  0.00
   o ItemCondition itemCondition optional
   o Location location optional
   --> bookNetMember owner optional
@@ -228,6 +234,7 @@ asset PurchaseRequest identified by id {
   --> bookNetMember purchasedBy 
   --> bookNetMember purchasedTo 
   o Boolean status default = false
+  o Boolean usedPoints default = false
   o DateTime createdAt optional
   o DateTime updatedAt optional
 }
@@ -291,6 +298,13 @@ transaction updateShipmentReview{
 
 transaction updateCustomerPoints{
    --> Customer customer
+   o Double accountBalance
+   o DateTime updatedAt
+   --> bookNetMember participantInvoking
+}
+
+transaction updatePublisherPoints{
+   --> Publisher publisher
    o Double accountBalance
    o DateTime updatedAt
    --> bookNetMember participantInvoking
