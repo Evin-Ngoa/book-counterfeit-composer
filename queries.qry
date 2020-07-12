@@ -266,5 +266,13 @@ query getCustomerOrders {
          SELECT org.evin.book.track.Customer
          WHERE (memberId == _$memberId)
   }
+
+  // http://localhost:3001/api/queries/getBookByID?id=BOOKID
+  query getBookByID {
+         description:"Get Book By ID"
+     statement:
+         SELECT org.evin.book.track.Book
+         WHERE (id == _$id)
+  }
 //  HISTORY PLAN
 //  https://stackoverflow.com/questions/46372302/how-do-i-find-the-history-of-transactions-for-an-asset-in-a-blockchain-implement?rq=1
