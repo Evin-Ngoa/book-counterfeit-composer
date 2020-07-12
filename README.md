@@ -50,7 +50,7 @@ Historian Queries return empty results till you add the following in your permis
 
 # Upgrade Project in [cd /d/workspace/fabric-dev-servers/book-counterfeit-composer]
 > dos2unix ./start.sh -f --start -v 0.4.12
-> ./start.sh -f --upgrade -v 0.5.5
+> ./start.sh -f --upgrade -v 0.5.6
 
 # Run Ngrok and type 
 > ngrok http 3000
@@ -288,3 +288,15 @@ Press esc key to get out of edit mode.
 Enter :wq and press enter . This will save and close the file.
 $ source ~/.bashrc will load your recent changes into your current shell.
 $ echo $API_KEY should print your API_KEY.
+
+Web Credentials
+customer@gmail.com - kaaradapk - $2y$11$MiDEscuxxng6srXz5oTQEeEHlFDFstq9NQfClPskcOIDJkHudDSuK
+customer-evin@gmail.com - 123456 - $2y$11$S2km385NKHlsLcZAd/ohsOPVlLsZczjLh0segNINbY1vWy6aZdPb2
+distributor@gmail.com - kaaradabdk - $2y$11$zaQSC80FT.C1yTnNf26XBeLtYu4uAjCqys0cx/zNCl8k9/231S49G
+publisher1@gmail.com - kaarada - $2y$11$1eyrh4wTKzEDAhhvxVqjIOw0LuegGON8RKesFv3oMe.Xp9i6iSLJm
+publisher2@gmail.com - kaaradakbs - $2y$11$bq9Tl0KaKOn2zYIPf8LHYuHSjOBNe.sdCNq6IxLWrqmYR2OGstlLS
+admin@book-counterfeit-composer.com - admin123 - $2y$11$rvQnj4Tyw7RLrsyfF6gkz.IYilC0o4hbhvjzajMNjOraKiJ1uMYSa
+
+video 089
+
+https://stackoverflow.com/questions/4795385/how-do-you-use-bcrypt-for-hashing-passwords-in-php/6337021#6337021
